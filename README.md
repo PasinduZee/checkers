@@ -75,6 +75,4 @@ Thanks to the authors and contributors of the following high-quality projects th
 
 ## License
 
-Copyright 2016 Kevin Schuetz
-
 [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0)
