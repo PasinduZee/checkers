@@ -32,9 +32,7 @@ object Settings {
     val macwire = "2.2.5"
     val uPickle = "0.4.4"
     val benchmark = "0.2.5"
-
     val react = "15.6.1"
-
     val scalaJsScripts = "1.1.1"
   }
 

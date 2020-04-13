@@ -88,20 +88,43 @@ class SideChrome(button: Button,
 
       currentY += buttonYSpacing
 
-      if(gameModel.hintButtonEnabled) {
-        val hintButton = button.create.withKey("hint-button")(Button.Props(buttonCenterX,
-          currentY,
-          buttonWidth,
-          buttonHeight,
-          radiusX = buttonRoundness,
-          radiusY = buttonRoundness,
-          caption = "Hint",
-          onClick = props.applicationCallbacks.onHintButtonClicked))(VdomArray.empty)
+      // if(gameModel.hintButtonEnabled) {
+      //   val hintButton = button.create.withKey("hint-button")(Button.Props(buttonCenterX,
+      //     currentY,
+      //     buttonWidth,
+      //     buttonHeight,
+      //     radiusX = buttonRoundness,
+      //     radiusY = buttonRoundness,
+      //     caption = "Hint",
+      //     onClick = props.applicationCallbacks.onHintButtonClicked))(VdomArray.empty)
 
-        parts += hintButton
-      }
+      //   parts += hintButton
+      // }
+
+      // currentY += buttonYSpacing
+
+     val leaderBoardButton = button.create.withKey("leaderboard-button")(Button.Props(buttonCenterX,
+        currentY,
+        buttonWidth,
+        buttonHeight,
+        radiusX = buttonRoundness,
+        radiusY = buttonRoundness,
+        caption = "Leaderboard",
+        tooltip = Some("Get Todays leaderboard"),
+        onClick = props.applicationCallbacks.onLeaderBoardButtonClicked))(VdomArray.empty)
+
+      parts += leaderBoardButton
 
       currentY += buttonYSpacing
+
+
+
+
+
+
+
+
+
 
       val powerMeterHeight = layoutSettings.SideChromePowerMeterHeightPixels
 

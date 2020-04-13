@@ -81,6 +81,11 @@ class Application(programRegistry: ProgramRegistry,
       game.foreach(_.showHint())
     }
 
+    override def onLeaderBoardButtonClicked: Callback = Callback {
+      game.foreach(_.humanActivity())
+      openLeaderboardDialog()
+    }
+
     override def onNewGameDialogResult(result: Result): Callback = Callback {
       closeNewGameDialog()
       result match {
@@ -118,6 +123,26 @@ class Application(programRegistry: ProgramRegistry,
 
       dialog.renderIntoDOM(dialogHost)
     }
+
+    private def openLeaderboardDialog(): Unit = {
+      val settings = lastUsedSettings.getOrElse(NewGameSettings.default)
+
+      val props = NewGameDialog.Props(playerChoices = playerChoices,
+        variationChoices = Variation.all,
+        initialDarkPlayer = findPlayerChoiceIndexById(settings.darkProgramId),
+        initialLightPlayer = findPlayerChoiceIndexById(settings.lightProgramId),
+        initialPlaysFirst = settings.rulesSettings.playsFirst,
+        initialVariationIndex = math.max(0, Variation.all.indexOf(settings.rulesSettings.variation)),
+        callbacks = this)
+
+      logger.log.debug(props.toString)
+
+      val dialog = newGameDialog.create(props)
+
+      dialog.renderIntoDOM(dialogHost)
+    }
+
+
 
     private def closeNewGameDialog(): Unit = {
       ReactDOM.unmountComponentAtNode(dialogHost)
