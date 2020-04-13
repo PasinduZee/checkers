@@ -7,6 +7,7 @@ trait ApplicationCallbacks {
   def onRotateBoardButtonClicked: Callback
   def onRushButtonClicked: Callback
   def onHintButtonClicked: Callback
+  def onLeaderBoardButtonClicked: Callback
 }
 
 object EmptyApplicationCallbacks extends ApplicationCallbacks {
@@ -14,4 +15,5 @@ object EmptyApplicationCallbacks extends ApplicationCallbacks {
   val onRotateBoardButtonClicked: Callback = Callback.empty
   val onRushButtonClicked: Callback = Callback.empty
   val onHintButtonClicked: Callback = Callback.empty
+  val onLeaderBoardButtonClicked: Callback = Callback.empty
 }

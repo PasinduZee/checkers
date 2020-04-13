@@ -16,22 +16,22 @@ case object NullHintState extends HintState
 case object NoMentorAvailable extends HintState
 
 case class MentorAvailable(mentor: Program, mentorOpaque: Opaque) extends HintState {
-  override val hintButtonVisible = true
+  override val hintButtonVisible = false
 }
 
 case class ComputingHint(startTime: Double, side: Side, playComputation: PlayComputation) extends HintState {
-  override def hintButtonVisible = true
-  override def waitingForComputer = true
+  override def hintButtonVisible = false
+  override def waitingForComputer = false
 }
 
 sealed trait MentorAnswer extends HintState
 
 case object NoSuggestion extends MentorAnswer {
-  override def hintButtonVisible = true
+  override def hintButtonVisible = false
 }
 
 case class HintAvailable(hint: Hint) extends MentorAnswer {
-  override def hintButtonVisible = true
+  override def hintButtonVisible = false
 }
 
 object Hint {

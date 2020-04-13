@@ -1,7 +1,5 @@
 # Checkers
 
-**[Play it here](http://kschuetz.github.io/checkers)**
-
 - A 100% client-side implementation of Checkers that runs in modern web browsers.
 - Graphics and animations are rendered as SVG elements in the browser DOM.
 - Supports Human vs. Computer, Human vs. Human (hot seat), and Computer vs. Computer games.
@@ -74,7 +72,5 @@ Thanks to the authors and contributors of the following high-quality projects th
 - [scalajs-spa-tutorial](https://github.com/ochrons/scalajs-spa-tutorial) - This is more than a tutorial -- it is a very good foundation for building non-trivial Play/Scala.js projects.
 
 ## License
-
-Copyright 2016 Kevin Schuetz
 
 [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0)
