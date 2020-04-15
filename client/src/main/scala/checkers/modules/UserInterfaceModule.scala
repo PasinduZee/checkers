@@ -5,6 +5,7 @@ import checkers.userinterface.animation._
 import checkers.userinterface.board.{LastMoveIndicator, PhysicalBoard, SquareOverlayButton}
 import checkers.userinterface.chrome._
 import checkers.userinterface.dialog.NewGameDialog
+import checkers.userinterface.leaderboard.LeaderBoard
 import checkers.userinterface.gamelog.{GameLogDisplay, GameLogEntry}
 import checkers.userinterface.piece._
 import checkers.userinterface.widgets.{Arrow, Button, DirectedArrow, ScrollButton}
@@ -79,6 +80,8 @@ trait UserInterfaceModule {
   lazy val decorations: Decorations = wire[Decorations]
 
   lazy val newGameDialog: NewGameDialog = wire[NewGameDialog]
+
+  lazy val leaderboard: LeaderBoard = wire[LeaderBoard]
 
   lazy val gameLogEntry: GameLogEntry = wire[GameLogEntry]
 

@@ -6,6 +6,7 @@ import checkers.logger
 import checkers.persistence.NewGameSettingsPersister
 import checkers.userinterface.dialog.NewGameDialog.{NewGameDialogCallbacks, Result}
 import checkers.userinterface.dialog.{NewGameDialog, PlayerChoice}
+import checkers.userinterface.leaderboard.LeaderBoard
 import japgolly.scalajs.react.{Callback, ReactDOM}
 import org.scalajs.dom
 
@@ -16,7 +17,8 @@ class Application(programRegistry: ProgramRegistry,
                   gameFactory: GameFactory,
                   makeGameLogicModule: GameLogicModuleFactory,
                   initialSeedsProvider: InitialSeedsProvider,
-                  newGameDialog: NewGameDialog)  {
+                  newGameDialog: NewGameDialog,
+                  leaderboard: LeaderBoard)  {
 
   private lazy val playerChoices: Vector[PlayerChoice] = {
     val computerPlayers = programRegistry.entries.sortWith {
@@ -125,21 +127,10 @@ class Application(programRegistry: ProgramRegistry,
     }
 
     private def openLeaderboardDialog(): Unit = {
-      val settings = lastUsedSettings.getOrElse(NewGameSettings.default)
 
-      val props = NewGameDialog.Props(playerChoices = playerChoices,
-        variationChoices = Variation.all,
-        initialDarkPlayer = findPlayerChoiceIndexById(settings.darkProgramId),
-        initialLightPlayer = findPlayerChoiceIndexById(settings.lightProgramId),
-        initialPlaysFirst = settings.rulesSettings.playsFirst,
-        initialVariationIndex = math.max(0, Variation.all.indexOf(settings.rulesSettings.variation)),
-        callbacks = this)
-
-      logger.log.debug(props.toString)
-
-      val dialog = newGameDialog.create(props)
-
-      dialog.renderIntoDOM(dialogHost)
+      logger.log.debug("openLeaderboardDialog")
+      val board = leaderboard.create()
+      board.renderIntoDOM(dialogHost)
     }
 
 
