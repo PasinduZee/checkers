@@ -7,6 +7,7 @@ import checkers.persistence.NewGameSettingsPersister
 import checkers.userinterface.dialog.NewGameDialog.{NewGameDialogCallbacks, Result}
 import checkers.userinterface.dialog.{NewGameDialog, PlayerChoice}
 import checkers.userinterface.leaderboard.LeaderBoard
+import checkers.userinterface.leaderboard.LeaderBoard.{LeaderBoardCallbacks,LeaderBoardResult}
 import japgolly.scalajs.react.{Callback, ReactDOM}
 import org.scalajs.dom
 
@@ -36,7 +37,10 @@ class Application(programRegistry: ProgramRegistry,
   }
 
 
-  class Session(gameHost: dom.Element, dialogHost: dom.Element) extends ApplicationCallbacks with NewGameDialogCallbacks {
+  class Session(gameHost: dom.Element, dialogHost: dom.Element) extends ApplicationCallbacks
+    with NewGameDialogCallbacks
+    with LeaderBoardCallbacks
+  {
     var game: Option[Game] = None
     var lastUsedSettings: Option[NewGameSettings] = None
 
@@ -99,6 +103,15 @@ class Application(programRegistry: ProgramRegistry,
       }
     }
 
+    override def onLeaderBoardResult(result: LeaderBoardResult): Callback = Callback {
+      closeNewGameDialog()
+      logger.log.debug("onLeaderBoardResult");
+    }
+
+
+
+
+
     private def makeNewGameSettings(input: NewGameDialog.Ok): NewGameSettings = {
       val getPlayerChoice = input.playerChoices.lift
       val darkPlayerId = getPlayerChoice(input.darkPlayerIndex).flatMap(_.programId)
@@ -127,9 +140,11 @@ class Application(programRegistry: ProgramRegistry,
     }
 
     private def openLeaderboardDialog(): Unit = {
+      val props = LeaderBoard.Props(learderBoardMode = 0,
+        callbacks = this)
 
       logger.log.debug("openLeaderboardDialog")
-      val board = leaderboard.create()
+      val board = leaderboard.create(props)
       board.renderIntoDOM(dialogHost)
     }
 

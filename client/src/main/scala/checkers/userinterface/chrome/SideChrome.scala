@@ -117,15 +117,6 @@ class SideChrome(button: Button,
 
       currentY += buttonYSpacing
 
-
-
-
-
-
-
-
-
-
       val powerMeterHeight = layoutSettings.SideChromePowerMeterHeightPixels
 
       val powerMeterElement = {

@@ -7,17 +7,23 @@ import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.vdom.{svg_<^ => svg}
 
-
 object LeaderBoard {
 
-  sealed trait Result
+  sealed trait LeaderBoardResult
 
-  case object Ok extends Result
+  case object Ok extends LeaderBoardResult
 
   trait LeaderBoardCallbacks {
-    def onLeaderBoardResult(result: Result): Callback
+    def onLeaderBoardResult(result: LeaderBoardResult): Callback
   }
 
+  case class State(graphMode: Int) {
+  }
+
+  case class Props(learderBoardMode: Int,
+                   callbacks: LeaderBoardCallbacks) {
+    def initialState: State = State(learderBoardMode)
+  }
 }
 
 class LeaderBoard() {
@@ -44,9 +50,9 @@ class LeaderBoard() {
     .build
 
 
-  class LeaderBoardBackend($: BackendScope[Unit]) extends DialogButtonsCallbacks{
+  class LeaderBoardBackend($: BackendScope[Props, State]) extends DialogButtonsCallbacks {
 
-    def render(): VdomElement = {
+    def render(props: Props, state: State): VdomElement = {
 
       val dialogButtons = DialogButtons(this)
 
@@ -64,7 +70,7 @@ class LeaderBoard() {
                 ^.onClick --> onOkClicked,
                 "×"
               ),
-              <.h2("New Game")
+              <.h2("Leaderboard")
             ),
             <.div(
               ^.`class` := "modal-body",
@@ -79,13 +85,15 @@ class LeaderBoard() {
     }
 
     def onOkClicked: Callback = for {
+      props <- $.props
       state <- $.state
       data = Ok
-      result <- props.callbacks.onLeaderBoardResult(data)
-    } yield result
+      LeaderBoardResult <- props.callbacks.onLeaderBoardResult(data)
+    } yield LeaderBoardResult
   }
 
-  val create = ScalaComponent.builder[Unit]("LeaderBoard")
+  val create = ScalaComponent.builder[Props]("LeaderBoard")
+    .initialStateFromProps[State](_.initialState)
     .renderBackend[LeaderBoardBackend]
     .build
 
