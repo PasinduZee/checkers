@@ -34,6 +34,7 @@ object Settings {
     val benchmark = "0.2.5"
     val react = "15.6.1"
     val scalaJsScripts = "1.1.1"
+    val scalaXml = "1.2.0"
   }
 
   /**
@@ -59,7 +60,8 @@ object Settings {
     "com.softwaremill.macwire" %% "macros" % versions.macwire % Provided,
     "com.lihaoyi" %%% "upickle" % versions.uPickle,
     "com.lihaoyi" %%% "utest" % versions.uTest % Test,
-    "com.github.japgolly.nyaya" %%% "nyaya-test" % versions.nyaya % Test
+    "com.github.japgolly.nyaya" %%% "nyaya-test" % versions.nyaya % Test,
+    "org.scala-lang.modules" %% "scala-xml" % versions.scalaXml
   ))
 
   val benchmarkjsDependencies = Def.setting(Seq(
